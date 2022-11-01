@@ -1,6 +1,6 @@
 describe('Goole Translate Tests',()=>{
 
-    describe('Translate from German to Spanish', ()=>{
+    describe('1 - Translate from German to Spanish', ()=>{
 
         it('should navigate to Google Translate', () => {
             cy.visit('https://translate.google.com/').then(()=> {
@@ -42,7 +42,7 @@ describe('Goole Translate Tests',()=>{
                 cy.get('textarea[aria-label="Source text"]').click();
                 
                 cy.wait(1000).then(()=>{
-                    cy.get('textarea[aria-label="Source text"]').type(data.initialtext);
+                    cy.get('textarea[aria-label="Source text"]').clear().type(data.initialtext);
                 });
             });
         });
@@ -55,7 +55,7 @@ describe('Goole Translate Tests',()=>{
 
     });
 
-    describe('Swap Languages, Verify Results', ()=>{
+    describe('2 - Swap Languages, Verify Results', ()=>{
 
         it('should click the swap languages button', ()=>{
             cy.get('button[aria-label="Swap languages (Cmd+Shift+S)"]').eq(0).should('exist').click();
@@ -78,7 +78,7 @@ describe('Goole Translate Tests',()=>{
 
     });
 
-    describe('Using the Screen Keyboard ', ()=>{
+    describe('3 - Using the Screen Keyboard ', ()=>{
 
         it('should clear the input field', ()=>{
             cy.get('textarea[aria-label="Source text"]').clear();
