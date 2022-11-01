@@ -29,8 +29,22 @@ describe('Goole Translate Tests',()=>{
         cy.get('input[aria-label="Search languages"]').eq(1).click({force: true}).type('Spanish{enter}');
     });
 
-    it.skip('should type the ', ()=>{
-        cy.get('textarea[aria-label="Source text"]').click();
+    it('should enter the selected language initial text ', ()=>{
+        cy.fixture('example').as('data').then((data)=>{
+            cy.get('textarea[aria-label="Source text"]').click().type(data.initialtext);
+            cy.wait(1000);
+        });
+    });
+
+    it('should detect that the target language translation is correct', ()=>{
+        cy.fixture('example').as('data').then((data)=>{
+            cy.get('span.ryNqvb').should('have.text', data.ExpectedResult);
+        });
+    });
+
+    it('should click the swap languages button', ()=>{
+        cy.get('button[aria-label="Swap languages (Cmd+Shift+S)"]').eq(0).should('exist').click();
+
     });
 
 
