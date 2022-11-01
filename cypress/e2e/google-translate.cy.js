@@ -16,8 +16,10 @@ describe('Goole Translate Tests',()=>{
             cy.get('[aria-label="More source languages"]').eq(0).click();
         });
 
-        it('should click German as the source language', ()=>{
-            cy.get('input[aria-label="Search languages"]').eq(0).click().type('German{enter}');
+        it('should select German as the source language', ()=>{
+            cy.fixture('example').as('data').then((data)=>{
+                cy.get('input[aria-label="Search languages"]').eq(0).click().type(data.sourceLanguage + '{enter}');
+            });
         });
 
         it('should show a Target Languages dropdown button', ()=>{
@@ -29,10 +31,13 @@ describe('Goole Translate Tests',()=>{
         });
 
         it('should select Spanish as the target language', ()=>{
-            cy.get('input[aria-label="Search languages"]').eq(1).click({force: true}).type('Spanish{enter}');
+            cy.fixture('example').as('data').then((data)=>{
+                cy.get('input[aria-label="Search languages"]').eq(1).click({force: true}).type(data.translationLanguage + '{enter}');
+            });
+            
         });
 
-        it('should enter the selected language initial text ', ()=>{
+        it('should enter the selected language (Spanish) initial text ', ()=>{
             cy.fixture('example').as('data').then((data)=>{
                 cy.get('textarea[aria-label="Source text"]').click();
                 
@@ -42,7 +47,7 @@ describe('Goole Translate Tests',()=>{
             });
         });
 
-        it('should detect that the target language translation is correct', ()=>{
+        it('should detect that the target language translation (German) is correct', ()=>{
             cy.fixture('example').as('data').then((data)=>{
                 cy.get('span.ryNqvb').should('have.text', data.ExpectedResult);
             });
@@ -73,7 +78,7 @@ describe('Goole Translate Tests',()=>{
 
     });
 
-    describe('Use the Screen Keyboard ', ()=>{
+    describe('Using the Screen Keyboard ', ()=>{
 
         it('should clear the input field', ()=>{
             cy.get('textarea[aria-label="Source text"]').clear();
@@ -84,14 +89,24 @@ describe('Goole Translate Tests',()=>{
         });
 
         it('should select the screen keyboard', ()=>{
+            cy.wait(2000);
             cy.get('.ita-kd-inputtool-icon').click();
+            cy.get('.ita-kd-dropdown-menu').within(()=>{
+                cy.get('.ita-kd-menuitem').contains('US International').click({force: true});
+            });
         });
 
-        it.skip('should type "Hi!" into the virtual keyboard', ()=>{});
+        it('should type "Hi!" into the virtual keyboard', ()=>{
+            cy.get('textarea[aria-label="Source text"]').click();
+            cy.get('#kbd').within(()=>{
+                cy.get('#K16').click();// shift 
+                cy.get('#K72').click();// H
+                cy.get('#K73').click();// i
+                cy.get('#K16').click();// shift 
+                cy.get('#K49').click();// !
+            });
+        });
 
     });
-
-
-
 
 });
