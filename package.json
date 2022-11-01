@@ -1,0 +1,27 @@
+{
+  "name": "google-translate-demo",
+  "version": "1.0.0",
+  "description": "A simple Cypress automation flow with Google Translate.",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L51332/google-translate-demo.git"
+  },
+  "keywords": [
+    "cypress",
+    "testing",
+    "javascript"
+  ],
+  "author": "Alex Lavorgna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/L51332/google-translate-demo/issues"
+  },
+  "homepage": "https://github.com/L51332/google-translate-demo#readme",
+  "devDependencies": {
+    "cypress": "^10.11.0"
+  }
+}
